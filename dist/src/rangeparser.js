@@ -67,8 +67,10 @@ var RangeParser = /** @class */ (function () {
         }; }
         var spaceAndSeparatorRe = new RegExp("[\\s" + options.thousandsSeparator + "]", 'g');
         var strippedString = inStr.replace(spaceAndSeparatorRe, '');
-        var numericRe = new RegExp("(\\d*\\" + options.decimalSymbol + ".?\\d+[kmbt]?)", 'ig');
-        var minmax = __spreadArrays(this.__matchAll(numericRe, strippedString)).map(function (res) { return _this.__expandNumber(res[1]); });
+        var numericRe = new RegExp("(\\d*\\" + options.decimalSymbol + "?\\d+[kmbt]?)", 'ig');
+        //const numericRe = /(\d*\.?\d+[kmbt]?)/ig;
+        var result = this.__matchAll(numericRe, strippedString);
+        var minmax = __spreadArrays(result).map(function (res) { return _this.__expandNumber(res[1]); });
         if (minmax.length === 1) {
             return new range_1.Range([minmax[0], minmax[0]]);
         }
@@ -80,10 +82,13 @@ var RangeParser = /** @class */ (function () {
         }
     };
     RangeParser.__matchAll = function (regexp, str) {
-        if (str.matchAll) {
-            return str.matchAll(regexp);
-        }
         var output = [];
+        if (str.matchAll) {
+            for (var _i = 0, _a = str.matchAll(regexp); _i < _a.length; _i++) {
+                var item = _a[_i];
+                output.push(item);
+            }
+        }
         var match;
         while ((match = regexp.exec(str)) !== null) {
             output.push(match);
@@ -94,7 +99,7 @@ var RangeParser = /** @class */ (function () {
         var _a;
         var num, exp;
         _a = /(\d+)([kmbt]?)/ig.exec(numStr.toLowerCase()).slice(1), num = _a[0], exp = _a[1];
-        return ({ 'k': 1000, 'm': 1000000, 'b': 1000000000, 't': 1000000000000 })[exp] * num;
+        return ({ 'k': 1000, 'm': 1000000, 'b': 1000000000, 't': 1000000000000, '': 1 })[exp] * num;
     };
     return RangeParser;
 }());

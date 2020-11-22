@@ -58,10 +58,11 @@ export class RangeParser {
 
         const spaceAndSeparatorRe = new RegExp(`[\\s${options.thousandsSeparator}]`,'g');
         const strippedString = inStr.replace(spaceAndSeparatorRe,'');
-        const numericRe = new RegExp(`(\\d*\\${options.decimalSymbol}.?\\d+[kmbt]?)`,'ig');
-
+        const numericRe = new RegExp(`(\\d*\\${options.decimalSymbol}?\\d+[kmbt]?)`,'ig');
         
-        let minmax = [...this.__matchAll(numericRe, strippedString)].map((res) => this.__expandNumber(res[1]));
+
+        let result = this.__matchAll(numericRe, strippedString);
+        let minmax = [...result].map((res) => this.__expandNumber(res[1]));
         
         if(minmax.length===1){
             return new Range([minmax[0], minmax[0]]);
@@ -73,10 +74,13 @@ export class RangeParser {
     }
 
     private static __matchAll(regexp, str) {
-        if (str.matchAll) {
-            return str.matchAll(regexp);
-        }
         let output = [];
+        if (str.matchAll) {
+            for(let item of str.matchAll(regexp)){
+                output.push(item);
+            }
+        }
+        
         let match;
         while ((match = regexp.exec(str)) !== null) {
             output.push(match);
@@ -87,7 +91,7 @@ export class RangeParser {
     private static __expandNumber(numStr) {
         let num, exp;
         [num, exp] = /(\d+)([kmbt]?)/ig.exec(numStr.toLowerCase()).slice(1);
-        return ({ 'k': 1000, 'm': 1000000, 'b': 1000000000, 't': 1000000000000 })[exp] * num;
+        return ({ 'k': 1000, 'm': 1000000, 'b': 1000000000, 't': 1000000000000, '': 1 })[exp] * num;
     }
 
 }
