@@ -1,4 +1,6 @@
-# Range
+# String-Range
+![example workflow name](https://github.com/erizvi/Range/workflows/build_nodejs_ci/badge.svg)
+
 A Range Class that supports parsing and sorting
 
 Ranges can be one of the following:
