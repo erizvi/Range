@@ -114,6 +114,17 @@ export class Range{
                 return this.compareTo(another);
             }
     }
+
+    public static compareTo(range1: string | Range, range2: string | Range){
+        if(typeof range1 === 'string'){
+            range1 = new Range(range1);
+        }
+        if(typeof range2 === 'string'){
+            range2 = new Range(range2);
+        }
+
+        return range1.compareTo(range2);
+    }
 }
 
 export enum RANGE_COMPARATOR_OPTIONS {
