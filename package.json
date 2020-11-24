@@ -1,5 +1,5 @@
 {
-  "name": "stringrange",
+  "name": "@erizvi/string-range",
   "version": "0.1.0",
   "description": "A Range Class that supports parsing and sorting",
   "main": "dist/index.js",
