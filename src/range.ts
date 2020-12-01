@@ -55,9 +55,10 @@ export class Range{
     isEmpty: boolean;
     rawString: string;
 
-    constructor(minmax: string | [number, number] | number[]){
+    constructor(minmax: string | [number|null, number|null] | number[]){
 
         this.isEmpty = false;
+        this.rawString = '';
 
         if(typeof minmax === 'string'){
             this.rawString = minmax;
@@ -68,14 +69,14 @@ export class Range{
             this.isEmpty = true;
         }
 
-        this.min = minmax[0];
-        this.max = minmax[1];
+        this.min = <number>minmax[0];
+        this.max = <number>minmax[1];
         this.span = this.max - this.min;
         
     }
 
     public compareTo(another: Range,
-        option: RANGE_COMPARATOR_OPTIONS = RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER): number{
+        option: RANGE_COMPARATOR_OPTIONS = RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER): number | undefined{
         if(!this.isEmpty && !another.isEmpty){
             let diff = this.max - another.max;
             if(diff === 0){
@@ -103,7 +104,7 @@ export class Range{
 
     public compareToWithOverrideOrderMaps(another: Range,
         orderMap: OrderMap,
-        option: RANGE_COMPARATOR_OPTIONS = RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER): number{
+        option: RANGE_COMPARATOR_OPTIONS = RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER): number | undefined{
         
             let m1 = orderMap[this.rawString];
             let m2 = orderMap[another.rawString];

@@ -73,13 +73,13 @@ export class RangeParser {
         }
     }
 
-    private static __matchAll(regexp, str) {
+    private static __matchAll(regexp: RegExp, str: string) {
         let output = [];
-        if (str.matchAll) {
+        /*if (str.matchAll) {
             for(let item of str.matchAll(regexp)){
                 output.push(item);
             }
-        }
+        }*/
         
         let match;
         while ((match = regexp.exec(str)) !== null) {
@@ -88,10 +88,16 @@ export class RangeParser {
         return output;
     }
 
-    private static __expandNumber(numStr) {
-        let num, exp;
-        [num, exp] = /(\d+)([kmbt]?)/ig.exec(numStr.toLowerCase()).slice(1);
-        return ({ 'k': 1000, 'm': 1000000, 'b': 1000000000, 't': 1000000000000, '': 1 })[exp] * num;
+    private static __expandNumber(numStr: string) {
+        let num: string, exp: string;
+        let res = /(\d+)([kmbt]?)/ig.exec(numStr.toLowerCase());
+        if(res){
+            [num, exp] = res.slice(1);
+            const _map: { [key:string]: number } = { 'k': 1000, 'm': 1000000, 'b': 1000000000, 't': 1000000000000, '': 1 };
+            return _map[exp] * +num;
+        }
+        
+        return null;
     }
 
 }
