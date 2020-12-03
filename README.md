@@ -4,7 +4,7 @@
 A Range Class that supports parsing and sorting
 
 Ranges can be one of the following:
-  
+  ```
    (1) Distinct: (a) -----><-----><-----><-----><-----
  
    (2) Overlapping: (a) <----->            (b)       <----->
@@ -22,7 +22,7 @@ Ranges can be one of the following:
    (5) Right Aligned:   <----->
                       <------->
                     <--------->
-        
+   ```     
    If range1 and range2 are two Distinct ranges then if range2[max] > range1[max] then
    range 2 is greater than range1.
   
@@ -49,3 +49,25 @@ Ranges can be one of the following:
   
    Decimals are supported and only positive numbers are supported
  
+ ### Usage
+
+```javascript
+let priceRanges = [
+  '$1m - $b',
+  '$50 - $500',
+  '$1000 - $1m',
+  '$10 - $50',
+  '$500 - $1k'
+];
+
+let sortedPriceRanges = priceRange.sort(Range.compareTo);
+
+  // '$10 - $50'
+  // '$50 - $500'
+  // '$500 - $1k'
+  // '$1000 - $1m'
+  // '$1m - $b'
+```
+  
+  
+  
