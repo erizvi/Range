@@ -49,6 +49,11 @@ Ranges can be one of the following:
   
    Decimals are supported and only positive numbers are supported
  
+ ### Installation
+ ```
+ npm install @erizvi/string-range 
+ ```
+
  ### Usage
 
 ```javascript
@@ -68,6 +73,54 @@ let sortedPriceRanges = priceRange.sort(Range.compareTo);
   // '$1000 - $1m'
   // '$1m - $b'
 ```
+
+```javascript
+
+import { Range } from '@erizvi/string-range';
+
+let priceRanges = [
+    '$1m - $1b',
+    '$50 - $500',
+    '$1000 - $1m',
+    '$10 - $50',
+    '$500 - $1k'
+];
+
+console.log('Original ranges:\r\n');
+priceRanges.forEach(element => {
+    console.log(element);
+});
+
+let sortedPriceRanges = priceRanges.sort(Range.compareTo);
+
   
+console.log('Sorted ranges using static Range.compareTo:\r\n');
+sortedPriceRanges.forEach(element => {
+    console.log(element);
+});
+
+priceRanges = [
+    '$1m - $1b',
+    '$50 - $500',
+    '$1000 - $1m',
+    '$10 - $50',
+    '$500 - $1k'
+];
+
+priceRanges.sort((a,b) => {
+
+    //let res = Range.compareTo(a,b);
+    let r1 = new Range(a);
+    let r2 = new Range(b);
+    let res = r1.compareTo(r2);
+    return res;
+
+});
+
+console.log('Sorted ranges using instance range.compareTo :\r\n');
+priceRanges.forEach(element => {
+    console.log(element);
+});
+```
   
   

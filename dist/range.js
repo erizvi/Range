@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RANGE_COMPARATOR_OPTIONS = exports.Range = void 0;
 /**
  *  Ranges can be one of the following:
  *
@@ -48,13 +45,14 @@ exports.RANGE_COMPARATOR_OPTIONS = exports.Range = void 0;
  *
  *  Decimals are supported and only positive numbers are supported
  */
-var rangeparser_1 = require("./rangeparser");
-var Range = /** @class */ (function () {
-    function Range(minmax) {
+import { RangeParser } from './rangeparser.js'; // .js extension added to support node. This works fine in typescript
+export class Range {
+    constructor(minmax) {
         this.isEmpty = false;
+        this.rawString = '';
         if (typeof minmax === 'string') {
             this.rawString = minmax;
-            var rng = rangeparser_1.RangeParser.parse(minmax);
+            const rng = RangeParser.parse(minmax);
             minmax = [rng.min, rng.max];
         }
         else if (Array.isArray(minmax) && minmax.length === 0) {
@@ -65,10 +63,9 @@ var Range = /** @class */ (function () {
         this.max = minmax[1];
         this.span = this.max - this.min;
     }
-    Range.prototype.compareTo = function (another, option) {
-        if (option === void 0) { option = RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER; }
+    compareTo(another, option = RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER) {
         if (!this.isEmpty && !another.isEmpty) {
-            var diff = this.max - another.max;
+            let diff = this.max - another.max;
             if (diff === 0) {
                 diff = this.span - another.span;
             }
@@ -90,24 +87,30 @@ var Range = /** @class */ (function () {
                 return 1;
             }
         }
-    };
-    Range.prototype.compareToWithOverrideOrderMaps = function (another, orderMap, option) {
-        if (option === void 0) { option = RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER; }
-        var m1 = orderMap[this.rawString];
-        var m2 = orderMap[another.rawString];
+    }
+    compareToWithOverrideOrderMaps(another, orderMap, option = RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER) {
+        let m1 = orderMap[this.rawString];
+        let m2 = orderMap[another.rawString];
         if (typeof m1 === 'number' && typeof m2 === 'number') {
             return m1 - m2;
         }
         else {
             return this.compareTo(another);
         }
-    };
-    return Range;
-}());
-exports.Range = Range;
-var RANGE_COMPARATOR_OPTIONS;
+    }
+    static compareTo(range1, range2) {
+        if (typeof range1 === 'string') {
+            range1 = new Range(range1);
+        }
+        if (typeof range2 === 'string') {
+            range2 = new Range(range2);
+        }
+        return range1.compareTo(range2);
+    }
+}
+export var RANGE_COMPARATOR_OPTIONS;
 (function (RANGE_COMPARATOR_OPTIONS) {
     RANGE_COMPARATOR_OPTIONS[RANGE_COMPARATOR_OPTIONS["EMTPY_RANGE_BEFORE"] = 1] = "EMTPY_RANGE_BEFORE";
     RANGE_COMPARATOR_OPTIONS[RANGE_COMPARATOR_OPTIONS["EMPTY_RANGE_AFTER"] = 2] = "EMPTY_RANGE_AFTER";
-})(RANGE_COMPARATOR_OPTIONS = exports.RANGE_COMPARATOR_OPTIONS || (exports.RANGE_COMPARATOR_OPTIONS = {}));
+})(RANGE_COMPARATOR_OPTIONS || (RANGE_COMPARATOR_OPTIONS = {}));
 //# sourceMappingURL=range.js.map

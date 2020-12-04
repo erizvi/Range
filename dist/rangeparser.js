@@ -1,4 +1,3 @@
-"use strict";
 /**
  *  Ranges can be one of the following:
  *
@@ -46,62 +45,49 @@
  *
  *  Decimals are supported and only positive numbers are supported
  */
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RangeParser = void 0;
-var range_1 = require("./range");
-var RangeParser = /** @class */ (function () {
-    function RangeParser() {
-    }
-    RangeParser.parse = function (inStr, options) {
-        var _this = this;
-        if (options === void 0) { options = {
-            decimalSymbol: '.',
-            thousandsSeparator: ','
-        }; }
-        var spaceAndSeparatorRe = new RegExp("[\\s" + options.thousandsSeparator + "]", 'g');
-        var strippedString = inStr.replace(spaceAndSeparatorRe, '');
-        var numericRe = new RegExp("(\\d*\\" + options.decimalSymbol + "?\\d+[kmbt]?)", 'ig');
-        //const numericRe = /(\d*\.?\d+[kmbt]?)/ig;
-        var result = this.__matchAll(numericRe, strippedString);
-        var minmax = __spreadArrays(result).map(function (res) { return _this.__expandNumber(res[1]); });
+import { Range } from './range.js'; // .js extension added to support node. This works fine in typescript
+export class RangeParser {
+    static parse(inStr, options = {
+        decimalSymbol: '.',
+        thousandsSeparator: ','
+    }) {
+        const spaceAndSeparatorRe = new RegExp(`[\\s${options.thousandsSeparator}]`, 'g');
+        const strippedString = inStr.replace(spaceAndSeparatorRe, '');
+        const numericRe = new RegExp(`(\\d*\\${options.decimalSymbol}?\\d+[kmbt]?)`, 'ig');
+        let result = this.__matchAll(numericRe, strippedString);
+        let minmax = [...result].map((res) => this.__expandNumber(res[1]));
         if (minmax.length === 1) {
-            return new range_1.Range([minmax[0], minmax[0]]);
+            return new Range([minmax[0], minmax[0]]);
         }
         else if (minmax.length === 2) {
-            return new range_1.Range([minmax[0], minmax[1]]);
+            return new Range([minmax[0], minmax[1]]);
         }
         else {
-            return new range_1.Range([]);
+            return new Range([]);
         }
-    };
-    RangeParser.__matchAll = function (regexp, str) {
-        var output = [];
-        if (str.matchAll) {
-            for (var _i = 0, _a = str.matchAll(regexp); _i < _a.length; _i++) {
-                var item = _a[_i];
+    }
+    static __matchAll(regexp, str) {
+        let output = [];
+        /*if (str.matchAll) {
+            for(let item of str.matchAll(regexp)){
                 output.push(item);
             }
-        }
-        var match;
+        }*/
+        let match;
         while ((match = regexp.exec(str)) !== null) {
             output.push(match);
         }
         return output;
-    };
-    RangeParser.__expandNumber = function (numStr) {
-        var _a;
-        var num, exp;
-        _a = /(\d+)([kmbt]?)/ig.exec(numStr.toLowerCase()).slice(1), num = _a[0], exp = _a[1];
-        return ({ 'k': 1000, 'm': 1000000, 'b': 1000000000, 't': 1000000000000, '': 1 })[exp] * num;
-    };
-    return RangeParser;
-}());
-exports.RangeParser = RangeParser;
+    }
+    static __expandNumber(numStr) {
+        let num, exp;
+        let res = /(\d+)([kmbt]?)/ig.exec(numStr.toLowerCase());
+        if (res) {
+            [num, exp] = res.slice(1);
+            const _map = { 'k': 1000, 'm': 1000000, 'b': 1000000000, 't': 1000000000000, '': 1 };
+            return _map[exp] * +num;
+        }
+        return null;
+    }
+}
 //# sourceMappingURL=rangeparser.js.map

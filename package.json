@@ -1,18 +1,27 @@
 {
+  "type": "module",
   "name": "@erizvi/string-range",
   "version": "0.1.0",
   "description": "A Range Class that supports parsing and sorting",
-  "main": "dist/index.js",
+  "main": "./dist/module.js",
+  "exports": {
+    "import": "./dist/module.js",
+    "require": "./dist/module.js"
+  },
   "directories": {
     "test": "tests"
   },
   "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc --module es2015 --target es5 --moduleResolution Node --outDir dist/esm",
+    "build:cjs": "tsc --module commonjs --target es5 --moduleResolution Node --outDir dist/cjs",
+    "build:es6": "tsc",
     "test": "ts-node node_modules/jasmine/bin/jasmine --config=spec/support/jasmine.json",
     "coverage": "nyc -r text -e .ts -x \"tests/*.test.ts\" npm run test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/erizvi/Range.git"
+    "url": "git+https://github.com/erizvi/String-Range.git"
   },
   "keywords": [
     "string",
