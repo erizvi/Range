@@ -123,4 +123,5 @@ priceRanges.forEach(element => {
 });
 ```
   
-  
+###### TODO
+Build ES Module, CommonJS, AMD, UMD module
