@@ -8,6 +8,10 @@
     "import": "./dist/module.js",
     "require": "./dist/module.js"
   },
+  "files": ["dist/", "src/",
+    "./package-lock.json",
+    "./README.md"
+  ],
   "directories": {
     "test": "tests"
   },
@@ -33,9 +37,9 @@
   "author": "Eusha Rizvi",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/erizvi/Range/issues"
+    "url": "https://github.com/erizvi/String-Range/issues"
   },
-  "homepage": "https://github.com/erizvi/Range#readme",
+  "homepage": "https://github.com/erizvi/String-Range#readme",
   "devDependencies": {
     "@types/jasmine": "^3.6.2",
     "jasmine": "^3.6.3",
