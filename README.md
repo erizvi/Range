@@ -124,4 +124,9 @@ priceRanges.forEach(element => {
 ```
   
 ###### TODO
-Build ES Module, CommonJS, AMD, UMD module
+Build CommonJS, AMD, UMD module
+
+Currently to debug the tests/test.ts file, you need to remove
+"type": "module" from package.json file. This needs to be fixed
+so that we can debug the ts code as well as package it as es module
+via the "type": "module" config. 

@@ -1,5 +1,5 @@
-import { Range } from '../src/range';
-import data from '../tests/data.json';
+import { Range } from '../src/module';
+import  data from './data.json';
 
 const positiveNegative = (n:number) => n>=0 ? "a positive number" : "a negative number";
 

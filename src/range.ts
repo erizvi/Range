@@ -45,7 +45,7 @@
  * 
  *  Decimals are supported and only positive numbers are supported
  */
-import { RangeParser } from './rangeparser.js'; // .js extension added to support node. This works fine in typescript
+import { RangeParser } from './rangeparser'; // .js extension added to support node. This works fine in typescript
 
 export class Range{
     

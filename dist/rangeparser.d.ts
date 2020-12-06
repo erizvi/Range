@@ -45,7 +45,7 @@
  *
  *  Decimals are supported and only positive numbers are supported
  */
-import { Range } from './range.js';
+import { Range } from './range';
 export declare class RangeParser {
     static parse(inStr: string, options?: RangeParserOptions): Range;
     private static __matchAll;
