@@ -10,7 +10,7 @@ export declare class Range {
     static compareTo(range1: string | Range, range2: string | Range): number | undefined;
 }
 export declare enum RANGE_COMPARATOR_OPTIONS {
-    EMTPY_RANGE_BEFORE = 1,
+    EMPTY_RANGE_BEFORE = 1,
     EMPTY_RANGE_AFTER = 2
 }
 export declare type OrderMap = {

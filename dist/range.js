@@ -80,7 +80,7 @@ export class Range {
                 return -1;
             }
         }
-        else if (option === RANGE_COMPARATOR_OPTIONS.EMTPY_RANGE_BEFORE) {
+        else if (option === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE) {
             if (this.isEmpty) {
                 return -1;
             }
@@ -96,7 +96,7 @@ export class Range {
             return m1 - m2;
         }
         else {
-            return this.compareTo(another);
+            return this.compareTo(another, option);
         }
     }
     static compareTo(range1, range2) {
@@ -111,7 +111,7 @@ export class Range {
 }
 export var RANGE_COMPARATOR_OPTIONS;
 (function (RANGE_COMPARATOR_OPTIONS) {
-    RANGE_COMPARATOR_OPTIONS[RANGE_COMPARATOR_OPTIONS["EMTPY_RANGE_BEFORE"] = 1] = "EMTPY_RANGE_BEFORE";
+    RANGE_COMPARATOR_OPTIONS[RANGE_COMPARATOR_OPTIONS["EMPTY_RANGE_BEFORE"] = 1] = "EMPTY_RANGE_BEFORE";
     RANGE_COMPARATOR_OPTIONS[RANGE_COMPARATOR_OPTIONS["EMPTY_RANGE_AFTER"] = 2] = "EMPTY_RANGE_AFTER";
 })(RANGE_COMPARATOR_OPTIONS || (RANGE_COMPARATOR_OPTIONS = {}));
 //# sourceMappingURL=range.js.map

@@ -85,7 +85,6 @@ export class Range{
             }
             return diff;
         }
-
         if(option === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER){
             if(this.isEmpty){
                 return 1;
@@ -93,7 +92,7 @@ export class Range{
             if(another.isEmpty){
                 return -1;
             }
-        } else if(option === RANGE_COMPARATOR_OPTIONS.EMTPY_RANGE_BEFORE){
+        } else if(option === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE){
             if(this.isEmpty){
                 return -1;
             }
@@ -113,7 +112,7 @@ export class Range{
             if(typeof m1 === 'number' && typeof m2 === 'number'){
                 return m1-m2;
             } else {
-                return this.compareTo(another);
+                return this.compareTo(another,option);
             }
     }
 
@@ -130,7 +129,7 @@ export class Range{
 }
 
 export enum RANGE_COMPARATOR_OPTIONS {
-    EMTPY_RANGE_BEFORE = 1,
+    EMPTY_RANGE_BEFORE = 1,
     EMPTY_RANGE_AFTER = 2
 }
 
