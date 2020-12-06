@@ -48,7 +48,7 @@ files.then((filePaths) => {
         return
       }
       let newData = data.replace(/(import .* from\s+['"])(.*)(?=['"])/g, '$1$2.js');
-      newData = data.replace(/(export .* from\s+['"])(.*)(?=['"])/g, '$1$2.js');
+      newData = newData.replace(/(export .* from\s+['"])(.*)(?=['"])/g, '$1$2.js');
       if (err) throw err;
 
       console.log(`writing to ${filepath}`)

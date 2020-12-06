@@ -64,6 +64,7 @@ export class Range{
             this.rawString = minmax;
             const rng = RangeParser.parse(minmax);
             minmax = [rng.min, rng.max];
+            this.isEmpty = rng.isEmpty;
         } else if(Array.isArray(minmax) && minmax.length===0){
             minmax = [null, null];
             this.isEmpty = true;

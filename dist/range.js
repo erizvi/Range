@@ -45,7 +45,7 @@
  *
  *  Decimals are supported and only positive numbers are supported
  */
-import { RangeParser } from './rangeparser'; // .js extension added to support node. This works fine in typescript
+import { RangeParser } from './rangeparser.js'; // .js extension added to support node. This works fine in typescript
 export class Range {
     constructor(minmax) {
         this.isEmpty = false;
@@ -54,6 +54,7 @@ export class Range {
             this.rawString = minmax;
             const rng = RangeParser.parse(minmax);
             minmax = [rng.min, rng.max];
+            this.isEmpty = rng.isEmpty;
         }
         else if (Array.isArray(minmax) && minmax.length === 0) {
             minmax = [null, null];
