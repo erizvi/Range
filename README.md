@@ -122,6 +122,39 @@ priceRanges.forEach(element => {
     console.log(element);
 });
 ```
+
+```javascript
+// span based comparison
+
+priceRanges = [
+    '< $10',
+    '$1m - $1b',
+    '$50 - $500',
+    '> $1B',
+    '$1000 - $1m',
+    'N/A',
+    '$10 - $50',
+    'No Results',
+    '$250M - $1B',
+    '$500 - $1k'
+];
+
+priceRanges.sort((a,b) => {
+
+    let r1 = new Range(a);
+    let r2 = new Range(b);
+    if(a==='> $1B'){ console.log(r1.max + " " + r1.min)}
+    let res = r1.compareToWithOverrideOrderMaps(r2,{"N/A":1,"No Results":2},RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE | RANGE_COMPARATOR_OPTIONS.MODE_SPAN);
+    
+    return res;
+
+});
+
+console.log('Sorted ranges using instance range.compareTo with RANGE_COMPARATOR_OPTIONS :\r\n');
+priceRanges.forEach(element => {
+    console.log(element);
+});
+```
   
 ###### TODO
 Build CommonJS, AMD, UMD module

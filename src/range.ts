@@ -81,18 +81,24 @@ export class Range{
         if(!this.isEmpty && !another.isEmpty){
             let diff = this.max - another.max;
             if(diff === 0){
-                diff = this.span - another.span;
+                if( (option & RANGE_COMPARATOR_OPTIONS.MODE_SPAN) === RANGE_COMPARATOR_OPTIONS.MODE_SPAN ){
+                    diff = this.span - another.span; // span based comparison
+                }
+                else {
+                    diff = this.min - another.min; // min value based comparison
+                }
+                
             }
             return diff;
         }
-        if(option === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER){
+        if( (option & RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER) === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER){
             if(this.isEmpty){
                 return 1;
             }
             if(another.isEmpty){
                 return -1;
             }
-        } else if(option === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE){
+        } else if( (option &  RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE) === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE){
             if(this.isEmpty){
                 return -1;
             }
@@ -129,8 +135,9 @@ export class Range{
 }
 
 export enum RANGE_COMPARATOR_OPTIONS {
-    EMPTY_RANGE_BEFORE = 1,
-    EMPTY_RANGE_AFTER = 2
+    EMPTY_RANGE_BEFORE = 1 << 0,
+    EMPTY_RANGE_AFTER = 1 << 1,
+    MODE_SPAN = 1 << 2
 }
 
 export type OrderMap = {

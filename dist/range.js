@@ -68,11 +68,16 @@ export class Range {
         if (!this.isEmpty && !another.isEmpty) {
             let diff = this.max - another.max;
             if (diff === 0) {
-                diff = this.span - another.span;
+                if ((option & RANGE_COMPARATOR_OPTIONS.MODE_SPAN) === RANGE_COMPARATOR_OPTIONS.MODE_SPAN) {
+                    diff = this.span - another.span; // span based comparison
+                }
+                else {
+                    diff = this.min - another.min; // min value based comparison
+                }
             }
             return diff;
         }
-        if (option === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER) {
+        if ((option & RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER) === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_AFTER) {
             if (this.isEmpty) {
                 return 1;
             }
@@ -80,7 +85,7 @@ export class Range {
                 return -1;
             }
         }
-        else if (option === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE) {
+        else if ((option & RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE) === RANGE_COMPARATOR_OPTIONS.EMPTY_RANGE_BEFORE) {
             if (this.isEmpty) {
                 return -1;
             }
@@ -113,5 +118,6 @@ export var RANGE_COMPARATOR_OPTIONS;
 (function (RANGE_COMPARATOR_OPTIONS) {
     RANGE_COMPARATOR_OPTIONS[RANGE_COMPARATOR_OPTIONS["EMPTY_RANGE_BEFORE"] = 1] = "EMPTY_RANGE_BEFORE";
     RANGE_COMPARATOR_OPTIONS[RANGE_COMPARATOR_OPTIONS["EMPTY_RANGE_AFTER"] = 2] = "EMPTY_RANGE_AFTER";
+    RANGE_COMPARATOR_OPTIONS[RANGE_COMPARATOR_OPTIONS["MODE_SPAN"] = 4] = "MODE_SPAN";
 })(RANGE_COMPARATOR_OPTIONS || (RANGE_COMPARATOR_OPTIONS = {}));
 //# sourceMappingURL=range.js.map

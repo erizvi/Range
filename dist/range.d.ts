@@ -11,7 +11,8 @@ export declare class Range {
 }
 export declare enum RANGE_COMPARATOR_OPTIONS {
     EMPTY_RANGE_BEFORE = 1,
-    EMPTY_RANGE_AFTER = 2
+    EMPTY_RANGE_AFTER = 2,
+    MODE_SPAN = 4
 }
 export declare type OrderMap = {
     [key: string]: number;
