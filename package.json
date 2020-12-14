@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "@erizvi/string-range",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Range Class that supports parsing and sorting",
   "main": "./dist/module.js",
   "exports": {

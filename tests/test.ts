@@ -44,3 +44,39 @@ describe('range1.compareTo', function() {
     
   });
   
+  describe('range1.compareToWithOverrideOrderMaps', function() {
+
+    let customMap = {
+        'N/A': 2,
+        'More than $500': 1
+    };
+    it(`when comparing Range: 'N/A' with Range: 'More than $500' should result in a positive number.`, function() {
+        const r1 = new Range('N/A');
+        const r2 = new Range('More than $500');
+        const expected = 1;
+        const r1LessThanr2 = r1.compareToWithOverrideOrderMaps(r2,customMap);
+
+        if(expected < 0){
+            expect(r1LessThanr2).toBeLessThan(0);
+        }else if(expected > 0){
+            expect(r1LessThanr2).toBeGreaterThan(0);
+        }
+
+    });
+
+    it(`when comparing Range: 'More than $500' with Range: 'N/A' should result in a negative number.`, function() {
+        const r1 = new Range('More than $500');
+        const r2 = new Range('N/A');
+        const expected = -1;
+        const r1LessThanr2 = r1.compareToWithOverrideOrderMaps(r2,customMap);
+
+        if(expected < 0){
+            expect(r1LessThanr2).toBeLessThan(0);
+        }else if(expected > 0){
+            expect(r1LessThanr2).toBeGreaterThan(0);
+        }
+
+    });
+
+    
+  });
